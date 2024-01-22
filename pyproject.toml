@@ -10,7 +10,7 @@ python = "^3.11"
 flake8 = "^7.0.0"
 
 [tool.poetry.scripts]
-gendiff = "hexlet_code.gendiff:main"
+gendiff = "hexlet_code.scripts.gendiff:main"
 
 [build-system]
 requires = ["poetry-core"]
