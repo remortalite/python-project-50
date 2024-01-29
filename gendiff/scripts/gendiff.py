@@ -23,7 +23,7 @@ def get_dict_sorted(items):
     return dict(sorted(items.items(), key=diff_item_sort))
 
 
-def main():
+def gendiff():
     parser = argparse.ArgumentParser(
         description='Compares two configuration files and shows a difference.'
     )
@@ -56,6 +56,10 @@ def main():
 
     result_dict = get_dict_sorted(result_dict)
     print(json.dumps(result_dict, indent=4).replace('"', ''))
+
+
+def main():
+    gendiff()
 
 
 if __name__ == "__main__":
