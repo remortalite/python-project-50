@@ -23,18 +23,9 @@ def get_dict_sorted(items):
     return dict(sorted(items.items(), key=diff_item_sort))
 
 
-def gendiff():
-    parser = argparse.ArgumentParser(
-        description='Compares two configuration files and shows a difference.'
-    )
-    parser.add_argument("-f", "--format", help="set format of output")
-    parser.add_argument("first_file", type=str)
-    parser.add_argument("second_file", type=str)
-
-    args = parser.parse_args()
-
-    file1 = json.load(open(args.first_file))
-    file2 = json.load(open(args.second_file))
+def generate_diff(file_path1, file_path2):
+    file1 = json.load(open(file_path1))
+    file2 = json.load(open(file_path2))
 
     common_keys = set(file1) & set(file2)
     diff_keys_first = set(file1) - set(file2)
@@ -59,7 +50,16 @@ def gendiff():
 
 
 def main():
-    gendiff()
+    parser = argparse.ArgumentParser(
+        description='Compares two configuration files and shows a difference.'
+    )
+    parser.add_argument("-f", "--format", help="set format of output")
+    parser.add_argument("first_file", type=str)
+    parser.add_argument("second_file", type=str)
+
+    args = parser.parse_args()
+
+    generate_diff(args.first_file, args.second_file)
 
 
 if __name__ == "__main__":
