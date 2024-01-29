@@ -6,6 +6,33 @@
 
 Generates differences between two json files.
 
-# Example:
+## Installation
+
+Clone the repository and install using Makefile:
+
+```
+git clone https://github.com/remortalite/python-project-50.git
+
+cd python-project-50/
+
+make install build publish package-install
+```
+
+## Arguments
+
+Command line format:
+
+```bash
+gendiff example/file1.json example/file2.json
+```
+
+Usage as python library:
+```python3
+from gendiff import generate_diff
+
+generate_diff("example/file1.json", "example/file2.json")
+```
+
+## Example:
 
 [![asciicast](https://asciinema.org/a/t9hLXIS8LIwC2f4KlhRrEBSBN.svg)](https://asciinema.org/a/t9hLXIS8LIwC2f4KlhRrEBSBN)
