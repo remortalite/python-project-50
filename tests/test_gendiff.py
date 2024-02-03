@@ -7,7 +7,9 @@ from gendiff.scripts.gendiff import (add_prefix,
                                      )
 from gendiff.scripts import gendiff
 
-import pytest
+from tests.fixtures import example_json, example_file1, example_file2
+
+import json
 
 
 def test_add_prefix():
@@ -36,35 +38,6 @@ def test_diff_item_sort():
 
     assert diff_item_sort(item1) == ("hello", 0)
     assert diff_item_sort(item2) == ("hello", 1)
-
-
-import json
-
-@pytest.fixture
-def example_json():
-    return json.loads("""{
-  "+ timeout": 20,
-  "- follow": false,
-  "+ verbose": true,
-  "  host": "hexlet.io",
-  "- proxy": "123.234.53.22",
-  "- timeout": 50}""")
-
-@pytest.fixture
-def example_file1():
-    return json.loads("""{
-  "host": "hexlet.io",
-  "timeout": 50,
-  "proxy": "123.234.53.22",
-  "follow": false}""")
-
-
-@pytest.fixture
-def example_file2():
-    return json.loads("""{
-  "timeout": 20,
-  "verbose": true,
-  "host": "hexlet.io"}""")
 
 
 def test_get_dict_sorted(example_json):
