@@ -20,7 +20,7 @@ def add_prefix_to_dict_keys(items, prefix=PREFIX_IF_SAME):
 
 def diff_item_sort(item):
     tuple_ = (item[0][2:],
-              0 if item[0] == PREFIX_IF_FIRST[0] else 1)
+              0 if item[0].startswith(PREFIX_IF_FIRST) else 1)
     return tuple_
 
 
@@ -55,7 +55,7 @@ def generate_diff(file_path1, file_path2):
             result_dict[add_prefix(key, PREFIX_IF_SECOND)] = file2[key]
 
     result_dict = get_dict_sorted(result_dict)
-    print(json.dumps(result_dict, indent=4).replace('"', ''))
+    return result_dict
 
 
 def main():
@@ -68,7 +68,8 @@ def main():
 
     args = parser.parse_args()
 
-    generate_diff(args.first_file, args.second_file)
+    result = generate_diff(args.first_file, args.second_file)
+    print(json.dumps(result, indent=4).replace('"', ''))
 
 
 if __name__ == "__main__":
