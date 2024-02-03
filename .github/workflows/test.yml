@@ -8,6 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          make install
+      - name: Test
+        run: make test
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         if: github.ref_name == 'main'
