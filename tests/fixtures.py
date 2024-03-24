@@ -33,8 +33,3 @@ def example_json_1():
 @pytest.fixture
 def example_json_2():
     return json.loads(open("tests/example/file2.json").read())
-
-
-@pytest.fixture
-def example_yaml_2():
-    return

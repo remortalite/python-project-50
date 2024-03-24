@@ -1,6 +1,7 @@
-import json
+from gendiff.utils.file_parser import parse_file
+
 import argparse
-import yaml
+import json
 
 
 PREFIX_IF_FIRST = "- "
@@ -31,15 +32,6 @@ def get_dict_sorted(items):
 
 def filter_dict(items, keys_include):
     return {k: v for (k, v) in items.items() if k in keys_include}
-
-
-def parse_file(file_path):
-    if file_path.endswith(".json"):
-        return json.load(open(file_path))
-    elif file_path.endswith(".yaml") or file_path.endswith(".yml"):
-        return yaml.safe_load(open(file_path))
-    else:
-        raise NameError("Wrong file extension! Needs .yaml, .yml or .json")
 
 
 def generate_diff(file_path1, file_path2):
