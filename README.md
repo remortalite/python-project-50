@@ -36,4 +36,4 @@ generate_diff("example/file1.json", "example/file2.json")
 
 ## Example:
 
-[![asciicast](https://asciinema.org/a/t9hLXIS8LIwC2f4KlhRrEBSBN.svg)](https://asciinema.org/a/t9hLXIS8LIwC2f4KlhRrEBSBN)
+[![asciicast](https://asciinema.org/a/YMZRe6S8quBY44sgtjyFJ1PeW.svg)](https://asciinema.org/a/YMZRe6S8quBY44sgtjyFJ1PeW)
