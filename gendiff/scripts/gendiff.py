@@ -1,5 +1,6 @@
 import json
 import argparse
+import yaml
 
 
 PREFIX_IF_FIRST = "- "
@@ -32,9 +33,18 @@ def filter_dict(items, keys_include):
     return {k: v for (k, v) in items.items() if k in keys_include}
 
 
+def parse_file(file_path):
+    if file_path.endswith(".json"):
+        return json.load(open(file_path))
+    elif file_path.endswith(".yaml") or file_path.endswith(".yml"):
+        return yaml.safe_load(open(file_path))
+    else:
+        raise NameError("Wrong file extension! Needs .yaml, .yml or .json")
+
+
 def generate_diff(file_path1, file_path2):
-    file1 = json.load(open(file_path1))
-    file2 = json.load(open(file_path2))
+    file1 = parse_file(file_path1)
+    file2 = parse_file(file_path2)
 
     common_keys = set(file1) & set(file2)
     diff_keys_first = set(file1) - set(file2)

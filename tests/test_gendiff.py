@@ -4,10 +4,13 @@ from gendiff.scripts.gendiff import (add_prefix,
                                      get_dict_sorted,
                                      filter_dict,
                                      generate_diff,
+                                     parse_file,
                                      )
 from gendiff.scripts import gendiff
 
-from tests.fixtures import example_json, example_file1, example_file2
+from tests.fixtures import (example_json_diff_unsorted,
+                            example_json_diff_sorted,
+                            example_json_1, example_json_2)
 
 import json
 
@@ -40,30 +43,30 @@ def test_diff_item_sort():
     assert diff_item_sort(item2) == ("hello", 1)
 
 
-def test_get_dict_sorted(example_json):
-    d_ = get_dict_sorted(example_json)
-    answer = json.loads("""{
-  "- follow": false,
-  "  host": "hexlet.io",
-  "- proxy": "123.234.53.22",
-  "- timeout": 50,
-  "+ timeout": 20,
-  "+ verbose": true}""")
-    assert d_ == answer
+def test_get_dict_sorted(example_json_diff_unsorted,
+                         example_json_diff_sorted):
+    json_sorted = get_dict_sorted(example_json_diff_unsorted)
+    assert json_sorted == example_json_diff_sorted
     assert get_dict_sorted({}) == {}
 
 
-def test_filter_dict(example_json):
-    assert filter_dict(example_json, ["  host", "+ timeout"]) == {
+def test_filter_dict(example_json_diff_sorted):
+    assert filter_dict(example_json_diff_sorted, ["  host", "+ timeout"]) == {
             "  host": "hexlet.io", "+ timeout": 20}
-    assert filter_dict(example_json, ["  host"]) == {
+    assert filter_dict(example_json_diff_sorted, ["  host"]) == {
             "  host": "hexlet.io"}
-    assert filter_dict(example_json, []) == {}
+    assert filter_dict(example_json_diff_sorted, []) == {}
     assert filter_dict({}, []) == {}
     assert filter_dict({}, ["  host"]) == {}
 
 
-def test_generate_diff(example_file1, example_file2, example_json):
-    result = get_dict_sorted(example_json)
+def test_generate_diff(example_json_diff_sorted):
+    result = generate_diff("tests/example/file1.json", "tests/example/file2.json")
+    assert example_json_diff_sorted == result
 
-    assert generate_diff("example/file1.json", "example/file2.json") == result
+
+def test_parse_yaml(example_json_1, example_json_2):
+    result = parse_file("tests/example/file1.yml")
+    assert result == example_json_1
+    result = parse_file("tests/example/file2.yaml")
+    assert result == example_json_2
