@@ -17,6 +17,7 @@ package-install:
 test:
 	poetry run pytest
 
-
 test-coverage:
+	poetry run pytest --cov=gendiff --cov-report term-missing
+test-coverage-report:
 	poetry run pytest --cov=gendiff --cov-report xml

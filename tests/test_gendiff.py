@@ -13,6 +13,7 @@ from tests.fixtures import (example_json_diff_unsorted,
                             example_json_1, example_json_2)
 
 import json
+import pytest
 
 
 def test_add_prefix():
@@ -70,3 +71,5 @@ def test_parse_yaml(example_json_1, example_json_2):
     assert result == example_json_1
     result = parse_file("tests/example/file2.yaml")
     assert result == example_json_2
+    with pytest.raises(Exception):
+        result = parse_file("tests/example/file2.png")
